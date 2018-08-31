@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC '-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans
+2.0//EN' 'http://java.sun.com/dtd/ejb-jar_2_0.dtd'>
+<ejb-jar>
+    <enterprise-beans>
+        <entity>
+            <description>user bean</description>
+            <ejb-name>User</ejb-name>
+            <ejb-class>com.maluc.user.User</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.Integer</prim-key-class>
+            <primkey-field>userId</primkey-field>
+            <reentrant>False</reentrant>
+            <cmp-field>
+                <field-name>userId</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>login</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>password</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>email</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>phoneNumber</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>name</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>surname</field-name>
+            </cmp-field>
+        </entity>
+    </enterprise-beans>
+</ejb-jar>
