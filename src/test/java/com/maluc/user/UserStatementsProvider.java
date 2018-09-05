@@ -10,6 +10,9 @@ public class UserStatementsProvider {
     public static final String TEST_SURNAME = "Nosacz";
     public static final String TEST_PHONE_NUMBER = "123456789";
 
+    public static final String NON_EXISTING_LOGIN = "another69";
+    public static final String INVALID_PASSWORD = "Invalid123";
+
     public static void createUser() throws SQLException {
         User user = new User().builder()
                 .login(TEST_LOGIN)
