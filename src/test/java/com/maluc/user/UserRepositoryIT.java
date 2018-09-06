@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.maluc.user.UserStatementsProvider.*;
 
@@ -20,6 +22,16 @@ public class UserRepositoryIT extends CheckUserIT{
     @After
     public void deleteUserFromDataBase() throws SQLException{
         deleteUser();
+    }
+
+    @Test
+    public void shouldGetUserList(){
+        UserRepo userRepo = new UserRepoImpl();
+        List<User> users = userRepo.getUserList();
+        Assert.assertNotNull(users);
+        Assert.assertFalse(users.isEmpty());
+        List<String> userLogins = users.stream().map(User::getLogin).collect(Collectors.toList());
+        Assert.assertTrue(userLogins.contains(TEST_LOGIN));
     }
 
     @Test

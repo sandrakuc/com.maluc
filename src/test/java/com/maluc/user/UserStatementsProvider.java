@@ -13,17 +13,18 @@ public class UserStatementsProvider {
     public static final String NON_EXISTING_LOGIN = "another69";
     public static final String INVALID_PASSWORD = "Invalid123";
 
+    public static final User SAMPLE_USER = new User().builder()
+            .login(TEST_LOGIN)
+            .password(TEST_PASSWORD)
+            .email(TEST_EMAIL)
+            .name(TEST_NAME)
+            .surname(TEST_SURNAME)
+            .phoneNumber(TEST_PHONE_NUMBER)
+            .build();
+
     public static void createUser() throws SQLException {
-        User user = new User().builder()
-                .login(TEST_LOGIN)
-                .password(TEST_PASSWORD)
-                .email(TEST_EMAIL)
-                .name(TEST_NAME)
-                .surname(TEST_SURNAME)
-                .phoneNumber(TEST_PHONE_NUMBER)
-                .build();
         UserRepo userRepo = new UserRepoImpl();
-        userRepo.save(user);
+        userRepo.save(SAMPLE_USER);
     }
 
     public static void deleteUser() throws SQLException {

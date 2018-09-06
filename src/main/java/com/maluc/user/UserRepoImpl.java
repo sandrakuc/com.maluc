@@ -1,26 +1,40 @@
 package com.maluc.user;
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.sql.SQLException;
 import java.util.List;
 
 public class UserRepoImpl implements UserRepo {
+
+    private EntityManager entityManager = Persistence.createEntityManagerFactory("maluc").createEntityManager();
 
     public static final String DELETE_USER = String.format("DELETE FROM %s.%s WHERE %s = ?",
             UserTable.SCHEMA,
             UserTable.NAME,
             UserTable.LOGIN_COLUMN_NAME);
 
-    EntityManager entityManager = Persistence.createEntityManagerFactory("maluc").createEntityManager();
+    public static final String GET_USER_LIST = "SELECT user FROM User user";
 
     public void save(User user) throws SQLException{
-
         entityManager.getTransaction().begin();
         entityManager.merge(user);
         entityManager.flush();
         entityManager.getTransaction().commit();
+    }
 
+    public List<User> getUserList() {
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery(GET_USER_LIST);
+        List<User> users = (List<User>)query.getResultList();
+        if(!users.isEmpty()) {
+            return users;
+        }
+        else{
+            return null;
+        }
     }
 
     public User getByLogin(String login) {
