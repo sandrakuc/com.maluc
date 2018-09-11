@@ -99,6 +99,20 @@ public class RegisterTestIT extends CheckUserIT {
         Assert.assertFalse(Response.Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()));
     }
 
+    @Test
+    public void shouldGetErrorDueToRegisterNewUserWithDifferentPasswords(){
+        WebTarget target = target("/register")
+                .queryParam("login", NEW_LOGIN)
+                .queryParam("email", NEW_EMAIL)
+                .queryParam("password", NEW_PASSWORD)
+                .queryParam("confirmPassword", TEST_PASSWORD)
+                .queryParam("name", NEW_NAME)
+                .queryParam("surname", NEW_SURNAME)
+                .queryParam("phoneNumber", null);
+        Response response = target.request().put(Entity.entity(User.class, MediaType.APPLICATION_JSON_TYPE));
+        Assert.assertFalse(Response.Status.Family.SUCCESSFUL.equals(response.getStatusInfo().getFamily()));
+    }
+
     public void checkFoundUser(User user, String expectedPhoneNumber){
         Assert.assertNotNull(user);
         Assert.assertTrue(user.getLogin().equals(NEW_LOGIN));
