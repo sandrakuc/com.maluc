@@ -28,7 +28,11 @@ public class UserStatementsProvider {
     }
 
     public static void deleteUser() throws SQLException {
+        deleteUser(TEST_LOGIN);
+    }
+
+    public static void deleteUser(String login) throws SQLException{
         UserRepo userRepo = new UserRepoImpl();
-        userRepo.deleteUserByLogin(TEST_LOGIN);
+        userRepo.deleteUserByLogin(login);
     }
 }

@@ -29,6 +29,7 @@ public class UserRepoImpl implements UserRepo {
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery(GET_USER_LIST);
         List<User> users = (List<User>)query.getResultList();
+        entityManager.getTransaction().commit();
         if(!users.isEmpty()) {
             return users;
         }

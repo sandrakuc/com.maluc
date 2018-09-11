@@ -7,8 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.maluc.user.UserStatementsProvider.*;
 
@@ -30,7 +30,10 @@ public class UserRepositoryIT extends CheckUserIT{
         List<User> users = userRepo.getUserList();
         Assert.assertNotNull(users);
         Assert.assertFalse(users.isEmpty());
-        List<String> userLogins = users.stream().map(User::getLogin).collect(Collectors.toList());
+        List<String> userLogins = new ArrayList<String>();
+        for(User user : users){
+            userLogins.add(user.getLogin());
+        }
         Assert.assertTrue(userLogins.contains(TEST_LOGIN));
     }
 
