@@ -1,5 +1,7 @@
 package com.maluc.services;
 
+import com.maluc.usecase.deleteuser.DeleteUserCommand;
+import com.maluc.usecase.deleteuser.DeleteUserCommandHandler;
 import com.maluc.usecase.login.InvalidLoginOrPasswordException;
 import com.maluc.usecase.login.LoginQuery;
 import com.maluc.usecase.login.LoginQueryHandler;
@@ -50,6 +52,17 @@ public class UserRestServices {
                 .build();
         RegisterCommandHandler registerCommandHandler = new RegisterCommandHandler();
         registerCommandHandler.handle(command);
-
     }
+
+    @DELETE
+    @Path("{login}/delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void deleteUserAccount(@PathParam("login") String login) throws Exception {
+        DeleteUserCommand command = DeleteUserCommand.builder()
+                .login(login)
+                .build();
+        DeleteUserCommandHandler deleteUserCommandHandler = new DeleteUserCommandHandler();
+        deleteUserCommandHandler.handle(command);
+    }
+
 }
