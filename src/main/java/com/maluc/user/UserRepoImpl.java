@@ -16,6 +16,12 @@ public class UserRepoImpl implements UserRepo {
             UserTable.NAME,
             UserTable.LOGIN_COLUMN_NAME);
 
+    public static final String CHANGE_PASSWORD = String.format("UPDATE %s.%s SET %s = ? WHERE %s = ?",
+            UserTable.SCHEMA,
+            UserTable.NAME,
+            UserTable.PASSWORD_COLUMN_NAME,
+            UserTable.LOGIN_COLUMN_NAME);
+
     public static final String GET_USER_LIST = "SELECT user FROM User user";
 
     public void save(User user) throws SQLException{
@@ -61,6 +67,15 @@ public class UserRepoImpl implements UserRepo {
         entityManager.getTransaction().begin();
         entityManager.createNativeQuery(DELETE_USER)
                 .setParameter(1, login)
+                .executeUpdate();
+        entityManager.getTransaction().commit();
+    }
+
+    public void changePassword(String login, String newPassword) {
+        entityManager.getTransaction().begin();
+        entityManager.createNativeQuery(CHANGE_PASSWORD)
+                .setParameter(1, newPassword)
+                .setParameter(2, login)
                 .executeUpdate();
         entityManager.getTransaction().commit();
     }

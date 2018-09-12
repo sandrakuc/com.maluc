@@ -1,5 +1,7 @@
 package com.maluc.services;
 
+import com.maluc.usecase.changepassword.ChangePasswordCommand;
+import com.maluc.usecase.changepassword.ChangePasswordCommandHandler;
 import com.maluc.usecase.deleteuser.DeleteUserCommand;
 import com.maluc.usecase.deleteuser.DeleteUserCommandHandler;
 import com.maluc.usecase.login.InvalidLoginOrPasswordException;
@@ -63,6 +65,23 @@ public class UserRestServices {
                 .build();
         DeleteUserCommandHandler deleteUserCommandHandler = new DeleteUserCommandHandler();
         deleteUserCommandHandler.handle(command);
+    }
+
+    @PUT
+    @Path("{login}/changePassword")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void changePassword(@PathParam("login")String login,
+                               @QueryParam("oldPassword") String oldPassword,
+                               @QueryParam("newPassword") String newPassword,
+                               @QueryParam("confirmNewPassword") String confirmNewPassword) throws Exception {
+        ChangePasswordCommand command = ChangePasswordCommand.builder()
+                .login(login)
+                .oldPassword(oldPassword)
+                .newPassword(newPassword)
+                .confirmNewPassword(confirmNewPassword)
+                .build();
+        ChangePasswordCommandHandler changePasswordCommandHandler = new ChangePasswordCommandHandler();
+        changePasswordCommandHandler.handle(command);
     }
 
 }

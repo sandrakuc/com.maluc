@@ -8,5 +8,5 @@ public interface UserRepo {
     List<User> getUserList();
     User getByLogin(String login);
     void deleteUserByLogin(String login) throws SQLException;
-
+    void changePassword(String login, String newPassword);
 }
